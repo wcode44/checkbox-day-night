@@ -1,0 +1,175 @@
+/* VARIABLES */
+:root {
+  font-size: 62.5%;
+
+  --bkBody: #E2E7EF;
+  --bkDay: #3A85B5;
+  --bkNight: #202133;
+
+  --bkSun: #F4CB31;
+  --bkMoon: #CDD0D7;
+
+  --radiance: 
+    radial-gradient(hsl(0 0% 100% / 0.25) 40%, transparent 40.5%),
+    radial-gradient(hsl(0 0% 100% / 0.25) 56%, transparent 56.5%)
+    hsl(0 0% 100% / 0.25);
+
+  --lblShadow: 
+    0 -.5rem .3rem #B5BCC5,
+    0 .5rem .3rem #FAFBFF,
+    0 .7rem 2rem .2rem rgba(0,0,0,.6) inset,
+    0 -.7rem 2rem .2rem rgba(0,0,0,.1) inset;
+
+  --astroShadow: 
+    -.4rem -.4rem 1rem rgba(0,0,0,.5) inset,
+    .4rem .4rem 1rem rgba(255,255,255,.8) inset,
+    .2rem .2rem 1rem rgba(0,0,0,.8);
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  background-color: var(--bkBody);
+}
+
+
+#checkbox {
+  display: none;
+}
+
+.lblCheckbox {
+  width: 30rem;
+  height: 11.5rem;
+  border-radius: 10rem;
+
+  border: .1rem solid rgba(0,0,0,.7);
+
+  background-color: var(--bkDay);
+  background-image: url("./assets/cloudsStar.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: var(--lblShadow);
+
+  padding: 0 1.5rem;
+  cursor: pointer;
+}
+
+/* SUN OR MOON */
+.astro {
+  display: block;
+
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+
+  border: 1px solid rgba(0,0,0,.7);
+
+  background-color: var(--bkSun);
+
+  position: relative;
+  top: calc((100% - 9rem) /2 );
+  left: 0;
+
+  box-shadow: var(--astroShadow);
+}
+
+/* RADIANCE ASTRO */
+.astro::before {
+  content: "";
+  width: 370%;
+  height: 370%;
+  display: block;
+  border-radius: 50%;
+  background: var(--radiance);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+
+
+.setNight,
+.setDay,
+.astroMoon,
+.astroSun {
+  animation-duration: .4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+
+.setNight {
+  animation-name: setNight;
+}
+
+.setDay {
+  animation-name: setDay;
+}
+
+.astroMoon {
+  animation-name: astroMoon;
+}
+
+.astroSun {
+  animation-name: astroSun;
+}
+
+
+@keyframes setNight {
+  0% {
+    background-color: var(--bkDay);
+    background-position: bottom;
+  }
+  100% {
+    background-color: var(--bkNight);
+    background-position: top;
+  }
+}
+
+@keyframes setDay {
+  0% {
+    background-color: var(--bkNight);
+    background-position: top;
+  }
+  100% {
+    background-color: var(--bkDay);
+    background-position: bottom;
+  }
+}
+
+@keyframes astroMoon {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: calc(100% - 9rem);
+    background-color: var(--bkMoon);
+    background-image: url("./assets/crater.png");
+    background-repeat: no-repeat;
+  }
+}
+
+@keyframes astroSun {
+  0% {
+    left: calc(100% - 9rem);
+  }
+  100% {
+    left: 0;
+    background-color: var(--bkSun);
+  }
+}
+
+
